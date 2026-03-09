@@ -1,9 +1,22 @@
 // ============================================================
 // GITHUB ISSUES API — Store and retrieve survey responses
 // ============================================================
+
+// Get GitHub token from localStorage or config
+function getGitHubToken() {
+  return localStorage.getItem('github_token') || CONFIG.GITHUB_TOKEN;
+}
+
+// Set GitHub token in localStorage
+function setGitHubToken(token) {
+  localStorage.setItem('github_token', token);
+  CONFIG.GITHUB_TOKEN = token;
+}
+
 const GitHub = {
   async submitResponse(department, respondentName, respondentRole, answers) {
-    const { GITHUB_OWNER, GITHUB_REPO, GITHUB_TOKEN } = CONFIG;
+    const { GITHUB_OWNER, GITHUB_REPO } = CONFIG;
+    const GITHUB_TOKEN = getGitHubToken();
 
     if (!GITHUB_OWNER || !GITHUB_REPO || !GITHUB_TOKEN) {
       throw new Error("GitHub is not configured. Please update config.js with your repo details and token.");
@@ -63,7 +76,8 @@ const GitHub = {
   },
 
   async fetchResponses() {
-    const { GITHUB_OWNER, GITHUB_REPO, GITHUB_TOKEN } = CONFIG;
+    const { GITHUB_OWNER, GITHUB_REPO } = CONFIG;
+    const GITHUB_TOKEN = getGitHubToken();
 
     if (!GITHUB_OWNER || !GITHUB_REPO || !GITHUB_TOKEN) {
       throw new Error("GitHub is not configured.");
