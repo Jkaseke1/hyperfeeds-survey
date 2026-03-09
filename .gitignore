@@ -1,0 +1,13 @@
+# Don't commit config with sensitive tokens
+# config.js
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
