@@ -141,5 +141,71 @@ const DEPARTMENTS = [
       { id: "q10", type: "textarea", label: "Any additional comments or expectations for the Digital Lead and this project?" },
       { id: "q11", type: "textarea", label: "Is there anything else — any process, challenge, risk, or opportunity — that we haven't asked about but that you feel is critical to the success of this digital transformation?" }
     ]
+  },
+
+  // ---- RETAIL OPERATIONS ----
+  {
+    id: "retail_operations",
+    name: "Retail Operations",
+    icon: "🏪",
+    color: "#EC4899",
+    description: "Retail store operations and customer service",
+    questions: [
+      { id: "q1", type: "scale", label: "How satisfied are you with the current retail POS and inventory systems?" },
+      { id: "q2", type: "textarea", label: "What are the biggest operational challenges in managing retail stores?" },
+      { id: "q3", type: "textarea", label: "How do you currently track stock levels and product availability across stores?" },
+      { id: "q4", type: "scale", label: "How effective is the current system for managing customer orders and deliveries?" },
+      { id: "q5", type: "textarea", label: "What manual processes slow down retail operations the most?" },
+      { id: "q6", type: "multiselect", label: "Which retail functions need the most improvement?", options: ["Point of Sale", "Inventory Management", "Customer Orders", "Delivery Tracking", "Reporting", "Staff Management"] },
+      { id: "q7", type: "textarea", label: "How do you currently handle customer complaints and returns?" },
+      { id: "q8", type: "scale", label: "How well do retail systems integrate with warehouse and finance systems?" },
+      { id: "q9", type: "textarea", label: "What data or reports do you need but currently don't have access to?" },
+      { id: "q10", type: "textarea", label: "What would make retail operations more efficient and improve customer experience?" },
+      { id: "q11", type: "textarea", label: "Is there anything else — any process, challenge, risk, or opportunity — that we haven't asked about but that you feel is critical to the success of this digital transformation?" }
+    ]
+  },
+
+  // ---- LOGISTICS ----
+  {
+    id: "logistics",
+    name: "Logistics",
+    icon: "🚚",
+    color: "#8B5CF6",
+    description: "Transportation, distribution, and delivery management",
+    questions: [
+      { id: "q1", type: "scale", label: "How satisfied are you with the current logistics and delivery tracking systems?" },
+      { id: "q2", type: "textarea", label: "What are the main challenges in managing deliveries and transportation?" },
+      { id: "q3", type: "textarea", label: "How do you currently plan routes and schedule deliveries?" },
+      { id: "q4", type: "scale", label: "How effective is communication between logistics, warehouses, and branches?" },
+      { id: "q5", type: "textarea", label: "What manual processes create bottlenecks in logistics operations?" },
+      { id: "q6", type: "multiselect", label: "Which logistics functions need the most improvement?", options: ["Route Planning", "Vehicle Tracking", "Delivery Scheduling", "Driver Management", "Fuel Management", "Maintenance Tracking"] },
+      { id: "q7", type: "textarea", label: "How do you currently track vehicle maintenance and fleet management?" },
+      { id: "q8", type: "scale", label: "How well can you track delivery status and provide updates to customers?" },
+      { id: "q9", type: "textarea", label: "What data or reports would help optimize logistics operations?" },
+      { id: "q10", type: "textarea", label: "What improvements would reduce costs and improve delivery efficiency?" },
+      { id: "q11", type: "textarea", label: "Is there anything else — any process, challenge, risk, or opportunity — that we haven't asked about but that you feel is critical to the success of this digital transformation?" }
+    ]
+  },
+
+  // ---- CHICKS ORDERING ----
+  {
+    id: "chicks_ordering",
+    name: "Chicks Ordering",
+    icon: "🐣",
+    color: "#F59E0B",
+    description: "Day-old chick procurement and distribution",
+    questions: [
+      { id: "q1", type: "scale", label: "How satisfied are you with the current chick ordering and tracking system?" },
+      { id: "q2", type: "textarea", label: "What are the biggest challenges in managing chick orders and deliveries?" },
+      { id: "q3", type: "textarea", label: "How do you currently forecast demand and place orders with suppliers?" },
+      { id: "q4", type: "scale", label: "How effective is coordination between ordering, logistics, and customer delivery?" },
+      { id: "q5", type: "textarea", label: "What manual processes cause delays or errors in chick ordering?" },
+      { id: "q6", type: "multiselect", label: "Which chick ordering functions need the most improvement?", options: ["Order Placement", "Supplier Management", "Delivery Scheduling", "Quality Tracking", "Customer Allocation", "Payment Processing"] },
+      { id: "q7", type: "textarea", label: "How do you track chick quality, mortality rates, and customer feedback?" },
+      { id: "q8", type: "scale", label: "How well can you match supply with customer demand?" },
+      { id: "q9", type: "textarea", label: "What data or reports would help improve chick ordering and distribution?" },
+      { id: "q10", type: "textarea", label: "What improvements would reduce waste and improve customer satisfaction?" },
+      { id: "q11", type: "textarea", label: "Is there anything else — any process, challenge, risk, or opportunity — that we haven't asked about but that you feel is critical to the success of this digital transformation?" }
+    ]
   }
 ];
