@@ -349,7 +349,7 @@ function exportToExcel() {
   
   excel += '</Workbook>';
   
-  downloadFile('Hyperfeeds_Stakeholder_Discovery_Report_' + timestamp + '.xls', excel, 'application/vnd.ms-excel');
+  downloadFile('Hyperfeeds_Stakeholder_Discovery_Report_' + timestamp + '.xlsx', excel, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 }
 
 function escapeXml(text) {
