@@ -15,6 +15,7 @@ const State = {
   selectedResponse: null,
   adminTab: "analytics",  // analytics | responses
   analyticsData: null,
+  editingResponse: null,
 };
 
 // ---- HELPERS ----
@@ -326,6 +327,29 @@ function getDeptIcon(labels) {
 }
 
 function renderResponseDetail(response) {
+  // If editing, show edit modal
+  if (State.editingResponse && State.editingResponse.id === response.id) {
+    return `
+      <div class="response-detail edit-modal">
+        <div class="detail-header">
+          <h3>Edit Response</h3>
+          <button class="btn-close" id="cancelEdit">✕</button>
+        </div>
+        <form id="editForm">
+          <div class="form-group">
+            <label>Response Content</label>
+            <textarea id="editBody" rows="20" style="width:100%; font-family: monospace; font-size: 0.9rem;">${response.body}</textarea>
+          </div>
+          <div class="form-row" style="gap: 0.5rem; margin-top: 1rem;">
+            <button type="button" class="btn-secondary" id="cancelEdit">Cancel</button>
+            <button type="submit" class="btn-primary">💾 Save Changes</button>
+          </div>
+        </form>
+      </div>
+    `;
+  }
+
+  // Normal detail view
   return `
     <div class="response-detail">
       <div class="detail-header">
@@ -337,7 +361,11 @@ function renderResponseDetail(response) {
         <span>${formatDate(response.createdAt)}</span>
       </div>
       <div class="detail-body">${formatBody(response.body)}</div>
-      <a href="${response.url}" target="_blank" class="btn-primary mt-1">Open in GitHub →</a>
+      <div class="detail-actions">
+        <a href="${response.url}" target="_blank" class="btn-outline">Open in GitHub →</a>
+        <button class="btn-secondary" id="editResponse" data-id="${response.id}">✏️ Edit</button>
+        <button class="btn-danger" id="deleteResponse" data-id="${response.id}">🗑️ Delete</button>
+      </div>
     </div>
   `;
 }
@@ -477,6 +505,70 @@ function attachEvents() {
     closeDetail.addEventListener("click", () => {
       State.selectedResponse = null;
       render();
+    });
+  }
+
+  // Delete response
+  const deleteBtn = el("deleteResponse");
+  if (deleteBtn) {
+    deleteBtn.addEventListener("click", async () => {
+      const issueId = deleteBtn.dataset.id;
+      if (!confirm("Are you sure you want to delete this response? This will close the issue on GitHub.")) {
+        return;
+      }
+      
+      try {
+        await GitHub.deleteResponse(issueId);
+        State.selectedResponse = null;
+        await loadResponses();
+        render();
+        alert("Response deleted successfully!");
+      } catch (err) {
+        alert("Failed to delete response: " + err.message);
+      }
+    });
+  }
+
+  // Edit response
+  const editBtn = el("editResponse");
+  if (editBtn) {
+    editBtn.addEventListener("click", () => {
+      const issueId = editBtn.dataset.id;
+      const response = State.responses.find(r => r.id == issueId);
+      if (response) {
+        State.editingResponse = response;
+        render();
+      }
+    });
+  }
+
+  // Cancel edit
+  const cancelEditBtns = document.querySelectorAll("#cancelEdit");
+  cancelEditBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      State.editingResponse = null;
+      render();
+    });
+  });
+
+  // Edit form submission
+  const editForm = el("editForm");
+  if (editForm) {
+    editForm.addEventListener("submit", async e => {
+      e.preventDefault();
+      const issueId = State.editingResponse.id;
+      const newBody = el("editBody").value;
+      const title = State.editingResponse.url.split('/').pop(); // Keep same title
+      
+      try {
+        await GitHub.updateResponse(issueId, State.editingResponse.url.match(/\[.+\]/)[0] || "Response", newBody);
+        State.editingResponse = null;
+        await loadResponses();
+        render();
+        alert("Response updated successfully!");
+      } catch (err) {
+        alert("Failed to update response: " + err.message);
+      }
     });
   }
 

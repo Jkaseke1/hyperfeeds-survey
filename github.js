@@ -114,5 +114,67 @@ const GitHub = {
       body: issue.body,
       labels: issue.labels.map(l => l.name)
     };
+  },
+
+  async deleteResponse(issueNumber) {
+    const { GITHUB_OWNER, GITHUB_REPO } = CONFIG;
+    const GITHUB_TOKEN = getGitHubToken();
+
+    if (!GITHUB_OWNER || !GITHUB_REPO || !GITHUB_TOKEN) {
+      throw new Error("GitHub is not configured.");
+    }
+
+    // Close the issue (GitHub doesn't allow permanent deletion via API)
+    const response = await fetch(
+      `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/issues/${issueNumber}`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `token ${GITHUB_TOKEN}`,
+          Accept: "application/vnd.github.v3+json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          state: "closed",
+          labels: ["deleted"]
+        })
+      }
+    );
+
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.message || "Failed to delete response");
+    }
+
+    return await response.json();
+  },
+
+  async updateResponse(issueNumber, title, body) {
+    const { GITHUB_OWNER, GITHUB_REPO } = CONFIG;
+    const GITHUB_TOKEN = getGitHubToken();
+
+    if (!GITHUB_OWNER || !GITHUB_REPO || !GITHUB_TOKEN) {
+      throw new Error("GitHub is not configured.");
+    }
+
+    const response = await fetch(
+      `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/issues/${issueNumber}`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `token ${GITHUB_TOKEN}`,
+          Accept: "application/vnd.github.v3+json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ title, body })
+      }
+    );
+
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.message || "Failed to update response");
+    }
+
+    return await response.json();
   }
 };
