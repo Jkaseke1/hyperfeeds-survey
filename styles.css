@@ -798,11 +798,16 @@ input[type="text"]:focus, input[type="password"]:focus {
 /* ---- COMPACT HOME PAGE (FIT ON ONE SCREEN) ---- */
 .home-page-compact {
   min-height: 100vh;
-  max-height: 100vh;
   display: flex;
   flex-direction: column;
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  overflow: hidden;
+}
+
+@media (min-width: 641px) {
+  .home-page-compact {
+    max-height: 100vh;
+    overflow: hidden;
+  }
 }
 
 .site-header-compact {
@@ -885,6 +890,14 @@ input[type="text"]:focus, input[type="password"]:focus {
   display: flex;
   align-items: center;
   overflow-y: auto;
+}
+
+@media (max-width: 640px) {
+  .main-compact {
+    overflow-y: visible;
+    align-items: flex-start;
+    padding: 1rem;
+  }
 }
 
 .dept-grid-compact {
@@ -993,21 +1006,82 @@ input[type="text"]:focus, input[type="password"]:focus {
 
 /* ---- RESPONSIVE ---- */
 @media (max-width: 640px) {
+  body {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
   .hero { padding: 2.5rem 1rem 2rem; }
   .hero-stats { gap: 1.5rem; }
   .dept-grid { grid-template-columns: 1fr; }
-  .dept-grid-compact { grid-template-columns: 1fr !important; }
+  .dept-grid-compact { 
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
+  }
+  
+  .dept-grid-compact .dept-card {
+    padding: 1.25rem;
+  }
+  
   .form-actions { flex-direction: column-reverse; }
   .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+  
   .admin-summary { flex-direction: column; }
   .summary-total { border-right: none; border-bottom: 1px solid var(--border); padding-right: 0; padding-bottom: 1rem; width: 100%; }
+  
   .header-inner { padding: 0 1rem; }
   .header-inner-compact {
     grid-template-columns: 1fr;
     text-align: center;
     gap: .75rem;
+    padding: 1rem;
   }
+  
+  .logo-compact { justify-content: center; }
+  .btn-admin-compact { margin: 0 auto; }
+  
   .header-title h1 { font-size: 1.1rem; }
   .header-title p { font-size: .75rem; }
-  .main-compact { padding: 1rem; }
+  
+  .admin-page .page-content {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .responses-section, .analytics-section {
+    width: 100% !important;
+  }
+  
+  .response-detail {
+    position: static;
+    max-height: none;
+    margin-top: 1rem;
+  }
+  
+  .detail-actions {
+    flex-direction: column;
+  }
+  
+  .detail-actions a,
+  .detail-actions button {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .admin-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .filter-buttons {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap;
+    padding-bottom: 0.5rem;
+  }
+  
+  .filter-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
 }
