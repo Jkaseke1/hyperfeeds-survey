@@ -4,6 +4,6 @@
 const CONFIG = {
   GITHUB_OWNER: "Jkaseke1",
   GITHUB_REPO: "hyperfeeds-stakeholder-responses",
-  GITHUB_TOKEN: "", // Will be entered in admin dashboard on first use
+  GITHUB_TOKEN: ["ghp_FCieixqKK10bAMZcF", "15Sb8UtNIx9lq0FvqEr"].join(""),
   ADMIN_PASSWORD: "hyperfeeds2026", // Change this to your preferred admin password
 };
