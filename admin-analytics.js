@@ -176,8 +176,19 @@ function exportToCSV() {
 }
 
 function exportToExcel() {
+  // Ensure analytics data is calculated
+  if (!State.analyticsData) {
+    State.analyticsData = Analytics.analyzeResponses(State.responses);
+  }
+  
   const data = State.analyticsData;
   const timestamp = new Date().toISOString().split('T')[0];
+  
+  // Validate we have the necessary data
+  if (!data || !data.overview || !data.departmentBreakdown || !data.painPoints || !data.recommendations || !data.priorities || !data.keywords) {
+    alert('Analytics data is not ready. Please wait for the analytics to load and try again.');
+    return;
+  }
   
   // Create workbook with multiple sheets
   let excel = '<?xml version="1.0"?>\n';
