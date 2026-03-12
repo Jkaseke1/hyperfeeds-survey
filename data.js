@@ -3,23 +3,43 @@
 // ============================================================
 const DEPARTMENTS = [
   {
-    id: "procurement",
-    name: "Procurement",
-    icon: "🛒",
+    id: "procurement_veterinary",
+    name: "Procurement - Veterinary & Livestock",
+    icon: "�",
     color: "#3B82F6",
-    description: "Raw material sourcing and supplier management",
+    description: "Veterinary chemicals and livestock equipment procurement",
     questions: [
-      { id: "q1", type: "text", label: "How are raw material purchase orders currently created and approved?" },
-      { id: "q2", type: "select", label: "How do you track supplier pricing and terms?", options: ["Spreadsheets", "Paper-based", "Sage 200", "Email/WhatsApp", "Other"] },
-      { id: "q3", type: "text", label: "What is the typical lead time for your main raw materials?" },
-      { id: "q4", type: "select", label: "How is goods receipt currently confirmed?", options: ["Paper GRN", "Spreadsheet", "Sage 200", "Verbal/No record", "Other"] },
-      { id: "q5", type: "textarea", label: "What are the biggest challenges you face in procurement today?" },
-      { id: "q6", type: "scale", label: "How would you rate the current visibility into stock levels when placing orders? (1=No visibility, 5=Full visibility)" },
-      { id: "q7", type: "multicheck", label: "Which of the following do you currently track? (select all that apply)", options: ["Supplier lead times", "Price history", "Order quantities", "Quality/rejection rates", "Contract terms", "None of the above"] },
-      { id: "q8", type: "textarea", label: "What information would help you make better procurement decisions?" },
-      { id: "q9", type: "select", label: "How often do you experience stock-outs of raw materials?", options: ["Rarely", "Monthly", "Weekly", "Daily", "Very frequently"] },
-      { id: "q10", type: "textarea", label: "Describe your ideal procurement process in the new system." },
-      { id: "q11", type: "textarea", label: "Is there anything else about procurement, suppliers, or purchasing that we haven't asked about but that you think is important for the new system to address?" }
+      { id: "q1", type: "scale", label: "How satisfied are you with the current procurement process for veterinary chemicals and livestock equipment?" },
+      { id: "q2", type: "textarea", label: "How are purchase orders for veterinary chemicals and livestock equipment currently created and approved?" },
+      { id: "q3", type: "textarea", label: "What are the biggest challenges in sourcing and managing veterinary supplies?" },
+      { id: "q4", type: "select", label: "How do you track supplier pricing and contract terms?", options: ["Spreadsheets", "Paper-based", "Sage Pastel", "Email/WhatsApp", "Other"] },
+      { id: "q5", type: "textarea", label: "What is the typical lead time for veterinary chemicals and livestock equipment?" },
+      { id: "q6", type: "multiselect", label: "Which procurement functions need the most improvement?", options: ["Supplier Management", "Price Tracking", "Order Approval", "Delivery Tracking", "Quality Control", "Inventory Visibility"] },
+      { id: "q7", type: "textarea", label: "How do you currently track quality, expiry dates, and compliance for veterinary products?" },
+      { id: "q8", type: "scale", label: "How often do you experience stock-outs or delays in veterinary supplies?" },
+      { id: "q9", type: "textarea", label: "What information or reports would help you make better procurement decisions?" },
+      { id: "q10", type: "textarea", label: "Describe your ideal procurement process for veterinary and livestock supplies in the new system." },
+      { id: "q11", type: "textarea", label: "Is there anything else — any process, challenge, risk, or opportunity — that we haven't asked about but that you feel is critical to the success of this digital transformation?" }
+    ]
+  },
+  {
+    id: "procurement_maintenance",
+    name: "Procurement - Plant Maintenance",
+    icon: "🔧",
+    color: "#8B5CF6",
+    description: "Plant maintenance accessories, tools, machinery spares",
+    questions: [
+      { id: "q1", type: "scale", label: "How satisfied are you with the current procurement process for plant maintenance items and spares?" },
+      { id: "q2", type: "textarea", label: "How are purchase orders for tools, accessories, and machinery spares currently created and approved?" },
+      { id: "q3", type: "textarea", label: "What are the biggest challenges in managing maintenance procurement and inventory?" },
+      { id: "q4", type: "select", label: "How do you track spare parts inventory and reorder levels?", options: ["Spreadsheets", "Paper-based", "Sage Pastel", "Manual counts", "No tracking", "Other"] },
+      { id: "q5", type: "textarea", label: "What is the typical lead time for critical machinery spares?" },
+      { id: "q6", type: "multiselect", label: "Which procurement functions need the most improvement?", options: ["Spare Parts Inventory", "Supplier Management", "Emergency Orders", "Price Tracking", "Maintenance Scheduling", "Equipment History"] },
+      { id: "q7", type: "textarea", label: "How do you currently link procurement to maintenance schedules and equipment breakdowns?" },
+      { id: "q8", type: "scale", label: "How often do equipment breakdowns occur due to unavailable spare parts?" },
+      { id: "q9", type: "textarea", label: "What information or reports would help optimize maintenance procurement?" },
+      { id: "q10", type: "textarea", label: "Describe your ideal procurement process for plant maintenance in the new system." },
+      { id: "q11", type: "textarea", label: "Is there anything else — any process, challenge, risk, or opportunity — that we haven't asked about but that you feel is critical to the success of this digital transformation?" }
     ]
   },
   {

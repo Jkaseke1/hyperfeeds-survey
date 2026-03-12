@@ -154,7 +154,7 @@ function renderAnalyticsDashboard() {
         <div class="export-buttons">
           <button class="btn-export" id="exportCSV">
             <span class="export-icon">📊</span>
-            Export Professional Excel Report
+            Export Comprehensive Report (CSV)
           </button>
           <button class="btn-export" id="exportPDF">
             <span class="export-icon">📄</span>
@@ -172,10 +172,6 @@ function renderAnalyticsDashboard() {
 
 // Export functions
 function exportToCSV() {
-  exportToExcel();
-}
-
-function exportToExcel() {
   // Ensure analytics data is calculated
   if (!State.analyticsData) {
     State.analyticsData = Analytics.analyzeResponses(State.responses);
@@ -190,176 +186,82 @@ function exportToExcel() {
     return;
   }
   
-  // Create workbook with multiple sheets
-  let excel = '<?xml version="1.0"?>\n';
-  excel += '<?mso-application progid="Excel.Sheet"?>\n';
-  excel += '<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"\n';
-  excel += ' xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">\n';
+  let csv = '';
   
-  // Styles
-  excel += '<Styles>\n';
-  excel += '<Style ss:ID="Header"><Font ss:Bold="1" ss:Size="12" ss:Color="#FFFFFF"/><Interior ss:Color="#2563EB" ss:Pattern="Solid"/><Alignment ss:Horizontal="Center" ss:Vertical="Center"/></Style>\n';
-  excel += '<Style ss:ID="Title"><Font ss:Bold="1" ss:Size="16" ss:Color="#1E3A8A"/></Style>\n';
-  excel += '<Style ss:ID="Subtitle"><Font ss:Bold="1" ss:Size="11" ss:Color="#64748B"/></Style>\n';
-  excel += '<Style ss:ID="MetricValue"><Font ss:Bold="1" ss:Size="14" ss:Color="#2563EB"/></Style>\n';
-  excel += '<Style ss:ID="HighPriority"><Interior ss:Color="#FEE2E2" ss:Pattern="Solid"/><Font ss:Color="#991B1B"/></Style>\n';
-  excel += '<Style ss:ID="MediumPriority"><Interior ss:Color="#FEF3C7" ss:Pattern="Solid"/><Font ss:Color="#92400E"/></Style>\n';
-  excel += '<Style ss:ID="LowPriority"><Interior ss:Color="#D1FAE5" ss:Pattern="Solid"/><Font ss:Color="#065F46"/></Style>\n';
-  excel += '<Style ss:ID="Date"><NumberFormat ss:Format="Short Date"/></Style>\n';
-  excel += '</Styles>\n';
+  // Executive Summary
+  csv += 'HYPERFEEDS DIGITAL TRANSFORMATION - STAKEHOLDER DISCOVERY REPORT\n';
+  csv += 'Generated: ' + new Date().toLocaleDateString() + '\n\n';
+  csv += 'EXECUTIVE SUMMARY\n';
+  csv += 'Metric,Value\n';
+  csv += 'Total Responses,' + data.overview.totalResponses + '\n';
+  csv += 'Departments Covered,' + data.overview.departmentsCovered + ' / ' + data.overview.totalDepartments + '\n';
+  csv += 'Completion Rate,' + data.overview.completionRate + '%\n';
+  csv += 'Overall Sentiment,' + data.sentiment.overall + '\n';
+  csv += 'Positive Sentiment,' + data.sentiment.positive + '%\n';
+  csv += 'Neutral Sentiment,' + data.sentiment.neutral + '%\n';
+  csv += 'Negative Sentiment,' + data.sentiment.negative + '%\n\n';
   
-  // Sheet 1: Executive Summary
-  excel += '<Worksheet ss:Name="Executive Summary">\n';
-  excel += '<Table>\n';
-  excel += '<Column ss:Width="200"/><Column ss:Width="150"/>\n';
-  
-  excel += '<Row><Cell ss:StyleID="Title"><Data ss:Type="String">Hyperfeeds Digital Transformation - Stakeholder Discovery Report</Data></Cell></Row>\n';
-  excel += '<Row><Cell ss:StyleID="Subtitle"><Data ss:Type="String">Generated: ' + new Date().toLocaleDateString() + '</Data></Cell></Row>\n';
-  excel += '<Row/>\n';
-  
-  excel += '<Row><Cell ss:StyleID="Header"><Data ss:Type="String">Key Metric</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Value</Data></Cell></Row>\n';
-  excel += '<Row><Cell><Data ss:Type="String">Total Responses</Data></Cell><Cell ss:StyleID="MetricValue"><Data ss:Type="Number">' + data.overview.totalResponses + '</Data></Cell></Row>\n';
-  excel += '<Row><Cell><Data ss:Type="String">Departments Covered</Data></Cell><Cell ss:StyleID="MetricValue"><Data ss:Type="String">' + data.overview.departmentsCovered + ' / ' + data.overview.totalDepartments + '</Data></Cell></Row>\n';
-  excel += '<Row><Cell><Data ss:Type="String">Completion Rate</Data></Cell><Cell ss:StyleID="MetricValue"><Data ss:Type="String">' + data.overview.completionRate + '%</Data></Cell></Row>\n';
-  excel += '<Row><Cell><Data ss:Type="String">Overall Sentiment</Data></Cell><Cell ss:StyleID="MetricValue"><Data ss:Type="String">' + data.sentiment.overall + '</Data></Cell></Row>\n';
-  excel += '<Row/>\n';
-  
-  excel += '<Row><Cell ss:StyleID="Subtitle"><Data ss:Type="String">Sentiment Breakdown</Data></Cell></Row>\n';
-  excel += '<Row><Cell><Data ss:Type="String">Positive</Data></Cell><Cell><Data ss:Type="String">' + data.sentiment.positive + '%</Data></Cell></Row>\n';
-  excel += '<Row><Cell><Data ss:Type="String">Neutral</Data></Cell><Cell><Data ss:Type="String">' + data.sentiment.neutral + '%</Data></Cell></Row>\n';
-  excel += '<Row><Cell><Data ss:Type="String">Negative</Data></Cell><Cell><Data ss:Type="String">' + data.sentiment.negative + '%</Data></Cell></Row>\n';
-  
-  excel += '</Table>\n</Worksheet>\n';
-  
-  // Sheet 2: Department Breakdown
-  excel += '<Worksheet ss:Name="Department Analysis">\n';
-  excel += '<Table>\n';
-  excel += '<Column ss:Width="150"/><Column ss:Width="100"/><Column ss:Width="120"/>\n';
-  
-  excel += '<Row><Cell ss:StyleID="Title"><Data ss:Type="String">Department Participation Analysis</Data></Cell></Row>\n';
-  excel += '<Row/>\n';
-  excel += '<Row><Cell ss:StyleID="Header"><Data ss:Type="String">Department</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Responses</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">% of Total</Data></Cell></Row>\n';
-  
+  // Department Analysis
+  csv += 'DEPARTMENT PARTICIPATION ANALYSIS\n';
+  csv += 'Department,Responses,% of Total\n';
   data.departmentBreakdown.forEach(dept => {
     const percentage = data.overview.totalResponses > 0 ? ((dept.responseCount / data.overview.totalResponses) * 100).toFixed(1) : 0;
-    excel += '<Row><Cell><Data ss:Type="String">' + dept.icon + ' ' + dept.name + '</Data></Cell>';
-    excel += '<Cell><Data ss:Type="Number">' + dept.responseCount + '</Data></Cell>';
-    excel += '<Cell><Data ss:Type="String">' + percentage + '%</Data></Cell></Row>\n';
+    csv += csvEscape(dept.icon + ' ' + dept.name) + ',' + dept.responseCount + ',' + percentage + '%\n';
   });
+  csv += '\n';
   
-  excel += '</Table>\n</Worksheet>\n';
-  
-  // Sheet 3: Top Pain Points
-  excel += '<Worksheet ss:Name="Pain Points">\n';
-  excel += '<Table>\n';
-  excel += '<Column ss:Width="50"/><Column ss:Width="400"/><Column ss:Width="120"/><Column ss:Width="100"/><Column ss:Width="100"/>\n';
-  
-  excel += '<Row><Cell ss:StyleID="Title"><Data ss:Type="String">Top Pain Points Identified</Data></Cell></Row>\n';
-  excel += '<Row/>\n';
-  excel += '<Row><Cell ss:StyleID="Header"><Data ss:Type="String">Rank</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Pain Point</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Department</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Mentions</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Severity</Data></Cell></Row>\n';
-  
+  // Pain Points
+  csv += 'TOP PAIN POINTS IDENTIFIED\n';
+  csv += 'Rank,Pain Point,Department,Mentions,Severity\n';
   data.painPoints.slice(0, 20).forEach((pain, i) => {
-    const styleID = pain.severity === 'high' ? 'HighPriority' : pain.severity === 'medium' ? 'MediumPriority' : 'LowPriority';
-    excel += '<Row><Cell><Data ss:Type="Number">' + (i + 1) + '</Data></Cell>';
-    excel += '<Cell><Data ss:Type="String">' + escapeXml(pain.text) + '</Data></Cell>';
-    excel += '<Cell><Data ss:Type="String">' + pain.department + '</Data></Cell>';
-    excel += '<Cell><Data ss:Type="Number">' + pain.count + '</Data></Cell>';
-    excel += '<Cell ss:StyleID="' + styleID + '"><Data ss:Type="String">' + pain.severity.toUpperCase() + '</Data></Cell></Row>\n';
+    csv += (i + 1) + ',' + csvEscape(pain.text) + ',' + csvEscape(pain.department) + ',' + pain.count + ',' + pain.severity.toUpperCase() + '\n';
   });
+  csv += '\n';
   
-  excel += '</Table>\n</Worksheet>\n';
-  
-  // Sheet 4: Action Items & Recommendations
-  excel += '<Worksheet ss:Name="Action Items">\n';
-  excel += '<Table>\n';
-  excel += '<Column ss:Width="100"/><Column ss:Width="120"/><Column ss:Width="250"/><Column ss:Width="300"/><Column ss:Width="300"/>\n';
-  
-  excel += '<Row><Cell ss:StyleID="Title"><Data ss:Type="String">Actionable Recommendations</Data></Cell></Row>\n';
-  excel += '<Row/>\n';
-  excel += '<Row><Cell ss:StyleID="Header"><Data ss:Type="String">Priority</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Category</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Recommendation</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Description</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Next Action</Data></Cell></Row>\n';
-  
+  // Action Items
+  csv += 'ACTIONABLE RECOMMENDATIONS\n';
+  csv += 'Priority,Category,Recommendation,Description,Next Action\n';
   data.recommendations.forEach(rec => {
-    const styleID = rec.priority === 'high' ? 'HighPriority' : rec.priority === 'medium' ? 'MediumPriority' : 'LowPriority';
-    excel += '<Row><Cell ss:StyleID="' + styleID + '"><Data ss:Type="String">' + rec.priority.toUpperCase() + '</Data></Cell>';
-    excel += '<Cell><Data ss:Type="String">' + rec.category + '</Data></Cell>';
-    excel += '<Cell><Data ss:Type="String">' + escapeXml(rec.title) + '</Data></Cell>';
-    excel += '<Cell><Data ss:Type="String">' + escapeXml(rec.description) + '</Data></Cell>';
-    excel += '<Cell><Data ss:Type="String">' + escapeXml(rec.action) + '</Data></Cell></Row>\n';
+    csv += rec.priority.toUpperCase() + ',' + csvEscape(rec.category) + ',' + csvEscape(rec.title) + ',' + csvEscape(rec.description) + ',' + csvEscape(rec.action) + '\n';
   });
+  csv += '\n';
   
-  excel += '</Table>\n</Worksheet>\n';
-  
-  // Sheet 5: Priority Matrix
-  excel += '<Worksheet ss:Name="Priority Matrix">\n';
-  excel += '<Table>\n';
-  excel += '<Column ss:Width="250"/><Column ss:Width="100"/><Column ss:Width="100"/><Column ss:Width="120"/>\n';
-  
-  excel += '<Row><Cell ss:StyleID="Title"><Data ss:Type="String">Priority Matrix - Urgency vs Impact</Data></Cell></Row>\n';
-  excel += '<Row/>\n';
-  excel += '<Row><Cell ss:StyleID="Header"><Data ss:Type="String">Item</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Urgency</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Impact</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Quadrant</Data></Cell></Row>\n';
-  
+  // Priority Matrix
+  csv += 'PRIORITY MATRIX - URGENCY VS IMPACT\n';
+  csv += 'Item,Urgency,Impact,Quadrant\n';
   data.priorities.forEach(priority => {
     const quadrant = priority.urgency >= 7 && priority.impact >= 7 ? 'DO FIRST' :
                      priority.urgency >= 7 && priority.impact < 7 ? 'SCHEDULE' :
                      priority.urgency < 7 && priority.impact >= 7 ? 'DELEGATE' : 'ELIMINATE';
-    const styleID = quadrant === 'DO FIRST' ? 'HighPriority' : quadrant === 'SCHEDULE' ? 'MediumPriority' : 'LowPriority';
-    
-    excel += '<Row><Cell><Data ss:Type="String">' + escapeXml(priority.item) + '</Data></Cell>';
-    excel += '<Cell><Data ss:Type="Number">' + priority.urgency + '</Data></Cell>';
-    excel += '<Cell><Data ss:Type="Number">' + priority.impact + '</Data></Cell>';
-    excel += '<Cell ss:StyleID="' + styleID + '"><Data ss:Type="String">' + quadrant + '</Data></Cell></Row>\n';
+    csv += csvEscape(priority.item) + ',' + priority.urgency + ',' + priority.impact + ',' + quadrant + '\n';
   });
+  csv += '\n';
   
-  excel += '</Table>\n</Worksheet>\n';
-  
-  // Sheet 6: Keywords
-  excel += '<Worksheet ss:Name="Top Keywords">\n';
-  excel += '<Table>\n';
-  excel += '<Column ss:Width="150"/><Column ss:Width="100"/>\n';
-  
-  excel += '<Row><Cell ss:StyleID="Title"><Data ss:Type="String">Most Mentioned Keywords</Data></Cell></Row>\n';
-  excel += '<Row/>\n';
-  excel += '<Row><Cell ss:StyleID="Header"><Data ss:Type="String">Keyword</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Mentions</Data></Cell></Row>\n';
-  
+  // Keywords
+  csv += 'MOST MENTIONED KEYWORDS\n';
+  csv += 'Keyword,Mentions\n';
   data.keywords.slice(0, 30).forEach(kw => {
-    excel += '<Row><Cell><Data ss:Type="String">' + kw.word + '</Data></Cell>';
-    excel += '<Cell><Data ss:Type="Number">' + kw.count + '</Data></Cell></Row>\n';
+    csv += csvEscape(kw.word) + ',' + kw.count + '\n';
   });
+  csv += '\n';
   
-  excel += '</Table>\n</Worksheet>\n';
-  
-  // Sheet 7: Raw Responses
-  excel += '<Worksheet ss:Name="All Responses">\n';
-  excel += '<Table>\n';
-  excel += '<Column ss:Width="120"/><Column ss:Width="150"/><Column ss:Width="150"/><Column ss:Width="100"/><Column ss:Width="250"/>\n';
-  
-  excel += '<Row><Cell ss:StyleID="Title"><Data ss:Type="String">All Survey Responses</Data></Cell></Row>\n';
-  excel += '<Row/>\n';
-  excel += '<Row><Cell ss:StyleID="Header"><Data ss:Type="String">Department</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Respondent</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Role</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">Date</Data></Cell><Cell ss:StyleID="Header"><Data ss:Type="String">GitHub URL</Data></Cell></Row>\n';
-  
+  // Raw Responses
+  csv += 'ALL SURVEY RESPONSES\n';
+  csv += 'Department,Respondent,Role,Date,GitHub URL\n';
   State.responses.forEach(r => {
-    excel += '<Row><Cell><Data ss:Type="String">' + escapeXml(r.department) + '</Data></Cell>';
-    excel += '<Cell><Data ss:Type="String">' + escapeXml(r.respondent) + '</Data></Cell>';
-    excel += '<Cell><Data ss:Type="String">' + escapeXml(r.role) + '</Data></Cell>';
-    excel += '<Cell ss:StyleID="Date"><Data ss:Type="String">' + r.date + '</Data></Cell>';
-    excel += '<Cell><Data ss:Type="String">' + r.url + '</Data></Cell></Row>\n';
+    csv += csvEscape(r.department) + ',' + csvEscape(r.respondent) + ',' + csvEscape(r.role) + ',' + r.date + ',' + r.url + '\n';
   });
   
-  excel += '</Table>\n</Worksheet>\n';
-  
-  excel += '</Workbook>';
-  
-  downloadFile('Hyperfeeds_Stakeholder_Discovery_Report_' + timestamp + '.xls', excel, 'application/vnd.ms-excel');
+  downloadFile('Hyperfeeds_Stakeholder_Discovery_Report_' + timestamp + '.csv', csv, 'text/csv;charset=utf-8;');
 }
 
-function escapeXml(text) {
+function csvEscape(text) {
   if (!text) return '';
-  return String(text)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
+  text = String(text).replace(/"/g, '""');
+  if (text.includes(',') || text.includes('\n') || text.includes('"')) {
+    return '"' + text + '"';
+  }
+  return text;
 }
 
 function exportToJSON() {

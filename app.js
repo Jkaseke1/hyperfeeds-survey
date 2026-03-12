@@ -13,9 +13,10 @@ const State = {
   error: null,
   filterDept: "all",
   selectedResponse: null,
-  adminTab: "analytics",  // analytics | responses
+  adminTab: "analytics",  // analytics | responses | recommendations
   analyticsData: null,
   editingResponse: null,
+  systemRecommendations: null,
 };
 
 // ---- HELPERS ----
@@ -292,12 +293,16 @@ function renderAdmin() {
           <button class="tab-btn ${State.adminTab === 'analytics' ? 'active' : ''}" data-tab="analytics">
             📊 Analytics & Insights
           </button>
+          <button class="tab-btn ${State.adminTab === 'recommendations' ? 'active' : ''}" data-tab="recommendations">
+            🎯 System Recommendations
+          </button>
           <button class="tab-btn ${State.adminTab === 'responses' ? 'active' : ''}" data-tab="responses">
             📝 Raw Responses (${State.responses.length})
           </button>
         </div>
 
-        ${State.adminTab === 'analytics' ? renderAnalyticsDashboard() : `
+        ${State.adminTab === 'analytics' ? renderAnalyticsDashboard() : 
+          State.adminTab === 'recommendations' ? renderSystemRecommendations() : `
           <div class="admin-summary">
             <div class="summary-total">
               <span class="total-num">${State.responses.length}</span>

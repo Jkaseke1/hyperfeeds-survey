@@ -1,0 +1,629 @@
+/* ============================================================
+   SYSTEM RECOMMENDATIONS DASHBOARD STYLES
+   ============================================================ */
+
+.system-recommendations-dashboard {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.rec-section {
+  margin-bottom: 3rem;
+}
+
+.rec-section .section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--brand);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border);
+}
+
+/* Current State Card */
+.current-state-card,
+.insights-card,
+.strategic-direction-card,
+.erp-recommendation-card,
+.integration-card,
+.data-strategy-card,
+.critical-considerations-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.current-state-card h3,
+.insights-card h3,
+.strategic-direction-card h3,
+.erp-recommendation-card h3,
+.integration-card h3,
+.data-strategy-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.current-state-card h4,
+.insights-card h4,
+.strategic-direction-card h4,
+.erp-recommendation-card h4,
+.integration-card h4,
+.data-strategy-card h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.systems-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.system-item {
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--border);
+}
+
+.system-item.system-gap {
+  border-color: #EF4444;
+  background: #FEF2F2;
+}
+
+.system-item.system-ok {
+  border-color: #10B981;
+  background: #F0FDF4;
+}
+
+.system-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.system-status {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.status-critical {
+  background: #FEE2E2;
+  color: #991B1B;
+}
+
+.status-warning {
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.status-ok {
+  background: #D1FAE5;
+  color: #065F46;
+}
+
+.system-coverage {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.gap-list,
+.concerns-list {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.gap-list li,
+.concerns-list li {
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+/* Insights Metrics */
+.insights-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.insight-metric {
+  text-align: center;
+  padding: 1rem;
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+}
+
+.insight-metric .metric-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--brand);
+  margin-bottom: 0.5rem;
+}
+
+.insight-metric .metric-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Strategic Direction */
+.recommendation-highlight {
+  background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+  border-left: 4px solid var(--brand);
+  padding: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--brand);
+  border-radius: var(--radius-sm);
+  margin: 1rem 0;
+}
+
+/* Module Cards */
+.module-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.module-card.priority-critical {
+  border-left-color: #EF4444;
+  background: #FFFBEB;
+}
+
+.module-card.priority-high {
+  border-left-color: #F59E0B;
+  background: #FEF3C7;
+}
+
+.module-card.priority-medium {
+  border-left-color: #3B82F6;
+  background: #EFF6FF;
+}
+
+.module-header {
+  margin-bottom: 1rem;
+}
+
+.module-header h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.priority-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-left: 0.75rem;
+}
+
+.priority-badge.priority-critical {
+  background: #FEE2E2;
+  color: #991B1B;
+}
+
+.priority-badge.priority-high {
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.priority-badge.priority-medium {
+  background: #DBEAFE;
+  color: #1E40AF;
+}
+
+.module-rationale {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+.features-list {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.features-list li {
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+/* Architecture */
+.architecture-approach {
+  background: var(--surface-2);
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
+}
+
+.erp-options {
+  display: grid;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.erp-option {
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.erp-option.erp-recommended {
+  border-color: #10B981;
+  background: #F0FDF4;
+}
+
+.erp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.erp-header h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.fit-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.fit-badge.fit-excellent {
+  background: #D1FAE5;
+  color: #065F46;
+}
+
+.fit-badge.fit-good {
+  background: #DBEAFE;
+  color: #1E40AF;
+}
+
+.erp-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+
+.erp-pros,
+.erp-cons {
+  font-size: 0.9rem;
+}
+
+.erp-pros strong {
+  color: #10B981;
+}
+
+.erp-cons strong {
+  color: #EF4444;
+}
+
+.erp-pros ul,
+.erp-cons ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.erp-pros li,
+.erp-cons li {
+  margin-bottom: 0.25rem;
+}
+
+.erp-fit {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.final-recommendation {
+  background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+  border-left: 4px solid #10B981;
+  padding: 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #065F46;
+  border-radius: var(--radius-sm);
+  margin-top: 1.5rem;
+}
+
+/* Integration */
+.integrations-list {
+  display: grid;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.integration-item {
+  background: var(--surface-2);
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--brand);
+}
+
+.integration-item strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--brand);
+  margin-bottom: 0.5rem;
+}
+
+.integration-item div {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+/* Phase Cards */
+.phase-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid var(--brand);
+  box-shadow: var(--shadow);
+}
+
+.phase-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.phase-header h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--brand);
+  margin: 0;
+}
+
+.phase-duration {
+  background: var(--brand);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.phase-systems {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* Roadmap Timeline */
+.roadmap-duration {
+  background: var(--surface-2);
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
+}
+
+.roadmap-timeline {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.roadmap-phase {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  border-left: 4px solid var(--brand);
+  box-shadow: var(--shadow);
+}
+
+.roadmap-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.roadmap-month {
+  background: var(--brand);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.roadmap-header h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.deliverables-list {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.deliverables-list li {
+  margin-bottom: 0.5rem;
+  color: var(--brand);
+  font-weight: 600;
+}
+
+/* Success Factors */
+.success-factor-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.success-factor-card.importance-critical {
+  border-left-color: #EF4444;
+  background: #FEF2F2;
+}
+
+.success-factor-card.importance-high {
+  border-left-color: #F59E0B;
+  background: #FFFBEB;
+}
+
+.success-factor-card.importance-medium {
+  border-left-color: #3B82F6;
+  background: #EFF6FF;
+}
+
+.factor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.factor-header h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.importance-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.importance-badge.importance-critical {
+  background: #FEE2E2;
+  color: #991B1B;
+}
+
+.importance-badge.importance-high {
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.importance-badge.importance-medium {
+  background: #DBEAFE;
+  color: #1E40AF;
+}
+
+/* Risks */
+.risks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+}
+
+.risk-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  border-left: 4px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.risk-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.risk-metrics {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.risk-metric {
+  font-size: 0.85rem;
+}
+
+.risk-metric .badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-left: 0.5rem;
+}
+
+.badge-high {
+  background: #FEE2E2;
+  color: #991B1B;
+}
+
+.badge-medium {
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.badge-low {
+  background: #D1FAE5;
+  color: #065F46;
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+  .system-recommendations-dashboard {
+    padding: 1rem;
+  }
+
+  .systems-grid,
+  .insights-metrics,
+  .erp-details,
+  .risks-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .roadmap-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .phase-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
