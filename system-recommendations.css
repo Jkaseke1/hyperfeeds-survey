@@ -169,6 +169,126 @@
   margin: 1rem 0;
 }
 
+/* Step-by-Step Guide */
+.guide-description {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+}
+
+.steps-timeline {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.step-card {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 1.5rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--brand);
+  transition: all 0.3s ease;
+}
+
+.step-card:hover {
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  transform: translateX(4px);
+}
+
+.step-number {
+  background: linear-gradient(135deg, var(--brand) 0%, #1E40AF 100%);
+  color: white;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-align: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.step-header h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.step-duration {
+  background: var(--brand);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.step-body h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--brand);
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.step-actions,
+.step-deliverables {
+  margin: 0.75rem 0 1.25rem 0;
+  padding-left: 1.5rem;
+}
+
+.step-actions li {
+  margin-bottom: 0.5rem;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.step-deliverables li {
+  margin-bottom: 0.5rem;
+  color: var(--brand);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.step-success {
+  background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+  border-left: 4px solid #10B981;
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  margin-top: 1.25rem;
+  font-size: 0.95rem;
+  color: #065F46;
+}
+
+.step-success strong {
+  color: #047857;
+}
+
 /* Module Cards */
 .module-card {
   background: var(--surface);
@@ -614,6 +734,24 @@
   .erp-details,
   .risks-grid {
     grid-template-columns: 1fr;
+  }
+
+  .step-card {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .step-number {
+    width: 60px;
+    height: 60px;
+    font-size: 0.75rem;
+    margin: 0 auto;
+  }
+
+  .step-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 
   .roadmap-header {

@@ -3,9 +3,8 @@
 // ============================================================
 
 function renderSystemRecommendations() {
-  if (!State.systemRecommendations) {
-    State.systemRecommendations = SystemRecommendations.generateSystemGuidance(State.responses, State.analyticsData || Analytics.analyzeResponses(State.responses));
-  }
+  // Always recalculate to ensure recommendations reflect latest responses
+  State.systemRecommendations = SystemRecommendations.generateSystemGuidance(State.responses, State.analyticsData || Analytics.analyzeResponses(State.responses));
 
   const rec = State.systemRecommendations;
 
@@ -68,6 +67,42 @@ function renderSystemRecommendations() {
           <ul>
             ${rec.overview.strategicDirection.rationale.map(r => `<li>${r}</li>`).join('')}
           </ul>
+        </div>
+      </div>
+
+      <!-- Step-by-Step Implementation Guide -->
+      <div class="rec-section">
+        <h2 class="section-title">📝 ${rec.stepByStepGuide.title}</h2>
+        <p class="guide-description">${rec.stepByStepGuide.description}</p>
+        
+        <div class="steps-timeline">
+          ${rec.stepByStepGuide.steps.map(step => `
+            <div class="step-card">
+              <div class="step-number">Step ${step.step}</div>
+              <div class="step-content">
+                <div class="step-header">
+                  <h3>${step.title}</h3>
+                  <span class="step-duration">${step.duration}</span>
+                </div>
+                
+                <div class="step-body">
+                  <h4>Actions to Take:</h4>
+                  <ul class="step-actions">
+                    ${step.actions.map(action => `<li>${action}</li>`).join('')}
+                  </ul>
+                  
+                  <h4>Deliverables:</h4>
+                  <ul class="step-deliverables">
+                    ${step.deliverables.map(deliverable => `<li>${deliverable}</li>`).join('')}
+                  </ul>
+                  
+                  <div class="step-success">
+                    <strong>Critical Success Factor:</strong> ${step.criticalSuccess}
+                  </div>
+                </div>
+              </div>
+            </div>
+          `).join('')}
         </div>
       </div>
 

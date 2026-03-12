@@ -17,6 +17,7 @@ const SystemRecommendations = {
       coreRequirements: this.identifyCoreRequirements(responses, analyticsData),
       systemArchitecture: this.recommendArchitecture(responses, analyticsData),
       integrationStrategy: this.planIntegration(currentSystems),
+      stepByStepGuide: this.generateStepByStepGuide(responses, analyticsData),
       implementationRoadmap: this.createRoadmap(responses, analyticsData),
       criticalSuccessFactors: this.identifySuccessFactors(responses, analyticsData),
       riskMitigation: this.identifyRisks(responses, analyticsData)
@@ -173,31 +174,31 @@ const SystemRecommendations = {
         recommendation: "Manufacturing-focused ERP system",
         options: [
           {
-            name: "Odoo ERP (Open Source)",
+            name: "System Option A (Open Source)",
             pros: ["Strong manufacturing module", "Highly customizable", "Lower licensing costs", "Active community", "Modular approach"],
             cons: ["Requires technical expertise", "May need customization for feed industry"],
             fit: "EXCELLENT - Best for manufacturing focus with budget flexibility"
           },
           {
-            name: "SAP Business One",
-            pros: ["Comprehensive functionality", "Strong in manufacturing", "Good support", "Scalable"],
+            name: "System Option B (Enterprise)",
+            pros: ["Comprehensive functionality", "Strong in manufacturing", "Good vendor support", "Scalable"],
             cons: ["Higher cost", "Complex implementation", "May be overkill for current size"],
             fit: "GOOD - If budget allows and long-term scalability is priority"
           },
           {
-            name: "Microsoft Dynamics 365 Business Central",
-            pros: ["Strong manufacturing", "Good integration capabilities", "Microsoft ecosystem", "Cloud-based"],
+            name: "System Option C (Cloud-Based)",
+            pros: ["Strong manufacturing", "Good integration capabilities", "Modern cloud platform", "Regular updates"],
             cons: ["Subscription costs", "Customization can be expensive"],
-            fit: "GOOD - If Microsoft ecosystem is preferred"
+            fit: "GOOD - If cloud infrastructure is preferred"
           },
           {
-            name: "ERPNext (Open Source)",
+            name: "System Option D (Open Source Alternative)",
             pros: ["Free and open source", "Manufacturing module", "Modern interface", "Cloud or on-premise"],
-            cons: ["Smaller community than Odoo", "May require customization"],
-            fit: "GOOD - Cost-effective alternative to Odoo"
+            cons: ["Smaller community", "May require customization"],
+            fit: "GOOD - Cost-effective alternative"
           }
         ],
-        recommendation: "**Odoo ERP** is recommended as the best fit for Hyperfeeds due to its strong manufacturing capabilities, modular approach, and cost-effectiveness."
+        recommendation: "**System Option A (Open Source)** is recommended as the best fit for Hyperfeeds due to its strong manufacturing capabilities, modular approach, and cost-effectiveness."
       },
       integrationLayer: {
         description: "Middleware to connect existing systems with new ERP",
@@ -285,6 +286,328 @@ const SystemRecommendations = {
         "Plan for cutover weekends to minimize business disruption",
         "Have rollback plans for each integration phase",
         "Maintain dual-entry during parallel run periods"
+      ]
+    };
+  },
+  
+  generateStepByStepGuide(responses, data) {
+    return {
+      title: "Step-by-Step Implementation Guide",
+      description: "A comprehensive guide to implementing the digital transformation system at Hyperfeeds",
+      steps: [
+        {
+          step: 1,
+          title: "Establish Project Foundation",
+          duration: "2-4 weeks",
+          actions: [
+            "Form a steering committee with representatives from all departments",
+            "Appoint a dedicated project manager with authority and resources",
+            "Define clear project objectives and success criteria",
+            "Secure executive sponsorship and budget approval",
+            "Establish communication channels and reporting structure"
+          ],
+          deliverables: [
+            "Project charter document",
+            "Steering committee roster",
+            "Approved budget and resource allocation",
+            "Communication plan"
+          ],
+          criticalSuccess: "Executive buy-in and clear governance structure"
+        },
+        {
+          step: 2,
+          title: "Conduct Detailed Requirements Analysis",
+          duration: "4-6 weeks",
+          actions: [
+            "Review all stakeholder survey responses in detail",
+            "Conduct follow-up workshops with each department",
+            "Document current processes (as-is) with flowcharts",
+            "Define future processes (to-be) aligned with best practices",
+            "Prioritize requirements based on pain points and business impact",
+            "Create detailed functional specifications for each module"
+          ],
+          deliverables: [
+            "Requirements specification document",
+            "Process maps (current and future state)",
+            "Prioritized requirements list",
+            "Gap analysis report"
+          ],
+          criticalSuccess: "Comprehensive understanding of business needs and processes"
+        },
+        {
+          step: 3,
+          title: "Select and Procure System",
+          duration: "6-8 weeks",
+          actions: [
+            "Develop system selection criteria based on requirements",
+            "Research and shortlist 3-4 system options (open source and commercial)",
+            "Request proposals and conduct vendor demonstrations",
+            "Evaluate systems against criteria (functionality, cost, support, scalability)",
+            "Conduct reference checks with similar businesses",
+            "Negotiate contract terms and service level agreements",
+            "Finalize vendor selection and sign contracts"
+          ],
+          deliverables: [
+            "System evaluation matrix",
+            "Vendor comparison report",
+            "Signed contracts and agreements",
+            "Implementation partner selected"
+          ],
+          criticalSuccess: "Choose system that best fits manufacturing needs and budget"
+        },
+        {
+          step: 4,
+          title: "Prepare Infrastructure and Data",
+          duration: "4-6 weeks",
+          actions: [
+            "Assess and upgrade IT infrastructure (servers, network, security)",
+            "Set up development, testing, and production environments",
+            "Clean and validate master data (products, customers, suppliers, BOMs)",
+            "Establish data governance policies and ownership",
+            "Create data migration plan and templates",
+            "Conduct initial data migration to test environment"
+          ],
+          deliverables: [
+            "Infrastructure ready and tested",
+            "Clean master data sets",
+            "Data migration scripts and procedures",
+            "Data quality report"
+          ],
+          criticalSuccess: "Reliable infrastructure and accurate master data"
+        },
+        {
+          step: 5,
+          title: "Configure Core Production Module",
+          duration: "8-10 weeks",
+          actions: [
+            "Install and configure the ERP system",
+            "Set up production module with feed formulations and recipes",
+            "Configure bill of materials (BOM) for all products",
+            "Set up production routing and work centers",
+            "Configure quality control checkpoints and testing procedures",
+            "Set up production costing and variance tracking",
+            "Conduct unit testing for each configuration"
+          ],
+          deliverables: [
+            "Configured production module",
+            "All BOMs and formulations loaded",
+            "Production workflows defined",
+            "Test results documented"
+          ],
+          criticalSuccess: "Production module accurately reflects manufacturing processes"
+        },
+        {
+          step: 6,
+          title: "Configure Procurement and Inventory Modules",
+          duration: "6-8 weeks",
+          actions: [
+            "Set up dual procurement workflows (veterinary/livestock and plant maintenance)",
+            "Configure supplier master data and pricing agreements",
+            "Set up purchase requisition and approval workflows",
+            "Configure inventory management for raw materials and spares",
+            "Set up reorder points and safety stock levels",
+            "Configure goods receipt and quality inspection processes",
+            "Set up expiry date tracking for veterinary products",
+            "Integrate procurement with production (MRP functionality)"
+          ],
+          deliverables: [
+            "Configured procurement module",
+            "Supplier database loaded",
+            "Inventory parameters set",
+            "Approval workflows active"
+          ],
+          criticalSuccess: "Automated procurement linked to production needs"
+        },
+        {
+          step: 7,
+          title: "Configure Warehouse Management",
+          duration: "4-6 weeks",
+          actions: [
+            "Set up warehouse locations and bin management",
+            "Configure separate areas for raw materials and finished goods",
+            "Set up barcode scanning for receipts and issues",
+            "Configure FIFO/FEFO rules for inventory movement",
+            "Set up cycle counting and stock reconciliation procedures",
+            "Configure warehouse reporting and dashboards",
+            "Train warehouse staff on new processes"
+          ],
+          deliverables: [
+            "Configured warehouse module",
+            "Bin locations mapped",
+            "Barcode system operational",
+            "Warehouse staff trained"
+          ],
+          criticalSuccess: "Real-time inventory accuracy and traceability"
+        },
+        {
+          step: 8,
+          title: "Integrate with Existing POS System",
+          duration: "6-8 weeks",
+          actions: [
+            "Analyze POS system data structure and APIs",
+            "Design integration architecture (real-time vs batch)",
+            "Develop integration middleware or connectors",
+            "Set up data synchronization for customers and products",
+            "Configure sales order flow from POS to ERP",
+            "Set up inventory updates from ERP to POS",
+            "Test integration thoroughly with sample transactions",
+            "Create monitoring and error handling procedures"
+          ],
+          deliverables: [
+            "Working POS-ERP integration",
+            "Integration documentation",
+            "Monitoring dashboard",
+            "Error handling procedures"
+          ],
+          criticalSuccess: "Seamless data flow between POS and ERP without manual intervention"
+        },
+        {
+          step: 9,
+          title: "Integrate with Sage Pastel",
+          duration: "4-6 weeks",
+          actions: [
+            "Map ERP chart of accounts to Sage Pastel",
+            "Configure automatic journal entry generation",
+            "Set up customer and supplier balance synchronization",
+            "Configure invoice and payment posting",
+            "Set up reconciliation procedures",
+            "Test financial data flow and accuracy",
+            "Train finance team on new processes"
+          ],
+          deliverables: [
+            "Working ERP-Sage Pastel integration",
+            "GL mapping document",
+            "Reconciliation procedures",
+            "Finance team trained"
+          ],
+          criticalSuccess: "Accurate and timely financial data in Sage Pastel"
+        },
+        {
+          step: 10,
+          title: "User Training and Change Management",
+          duration: "6-8 weeks (ongoing)",
+          actions: [
+            "Develop training materials (manuals, videos, quick reference guides)",
+            "Conduct role-based training sessions for all users",
+            "Set up super-user network in each department",
+            "Create sandbox environment for practice",
+            "Conduct change management workshops",
+            "Address user concerns and resistance proactively",
+            "Establish ongoing support structure"
+          ],
+          deliverables: [
+            "Training materials complete",
+            "All users trained",
+            "Super-user network established",
+            "Support helpdesk ready"
+          ],
+          criticalSuccess: "User adoption and confidence in new system"
+        },
+        {
+          step: 11,
+          title: "Conduct User Acceptance Testing (UAT)",
+          duration: "4-6 weeks",
+          actions: [
+            "Develop comprehensive test scenarios covering all processes",
+            "Conduct end-to-end testing with actual users",
+            "Test all integrations under realistic load",
+            "Document and fix all issues found",
+            "Conduct performance and stress testing",
+            "Get formal sign-off from department heads",
+            "Prepare cutover plan and rollback procedures"
+          ],
+          deliverables: [
+            "UAT test results",
+            "Issue resolution log",
+            "User sign-off documents",
+            "Cutover plan"
+          ],
+          criticalSuccess: "System proven to work in real-world scenarios"
+        },
+        {
+          step: 12,
+          title: "Execute Phased Go-Live",
+          duration: "8-12 weeks",
+          actions: [
+            "Phase 1: Go live with production module (run parallel for 2-4 weeks)",
+            "Phase 2: Go live with procurement and inventory",
+            "Phase 3: Activate POS integration",
+            "Phase 4: Activate Sage Pastel integration",
+            "Monitor system performance and user adoption closely",
+            "Provide intensive support during each phase",
+            "Address issues immediately as they arise",
+            "Conduct daily stand-ups during critical periods"
+          ],
+          deliverables: [
+            "Production module live",
+            "All modules operational",
+            "All integrations active",
+            "System stable"
+          ],
+          criticalSuccess: "Smooth transition with minimal business disruption"
+        },
+        {
+          step: 13,
+          title: "Implement Extended Modules",
+          duration: "8-12 weeks",
+          actions: [
+            "Deploy logistics and fleet management module",
+            "Implement chicks ordering and distribution module",
+            "Set up advanced analytics and reporting",
+            "Deploy mobile apps for field operations",
+            "Configure automated alerts and notifications",
+            "Optimize system performance based on usage patterns"
+          ],
+          deliverables: [
+            "All modules fully operational",
+            "Mobile apps deployed",
+            "Advanced reporting available",
+            "System optimized"
+          ],
+          criticalSuccess: "Complete digital transformation across all operations"
+        },
+        {
+          step: 14,
+          title: "Stabilize and Optimize",
+          duration: "12+ weeks (ongoing)",
+          actions: [
+            "Monitor system performance and user satisfaction",
+            "Gather feedback and identify improvement opportunities",
+            "Fine-tune configurations based on actual usage",
+            "Optimize slow processes and reports",
+            "Conduct advanced training for power users",
+            "Document lessons learned and best practices",
+            "Plan for continuous improvement initiatives"
+          ],
+          deliverables: [
+            "Stable, optimized system",
+            "User satisfaction metrics",
+            "Continuous improvement plan",
+            "Complete documentation"
+          ],
+          criticalSuccess: "System becomes integral to daily operations"
+        },
+        {
+          step: 15,
+          title: "Establish Ongoing Support and Governance",
+          duration: "Ongoing",
+          actions: [
+            "Set up internal IT support team for system maintenance",
+            "Establish vendor support agreements and SLAs",
+            "Create system governance committee for change management",
+            "Implement regular system health checks and audits",
+            "Plan for system upgrades and enhancements",
+            "Conduct periodic user refresher training",
+            "Monitor ROI and business benefits realization"
+          ],
+          deliverables: [
+            "Support structure in place",
+            "Governance framework",
+            "Maintenance schedule",
+            "Benefits tracking dashboard"
+          ],
+          criticalSuccess: "Sustainable long-term system operation and continuous improvement"
+        }
       ]
     };
   },
