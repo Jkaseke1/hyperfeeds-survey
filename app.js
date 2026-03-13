@@ -13,7 +13,7 @@ const State = {
   error: null,
   filterDept: "all",
   selectedResponse: null,
-  adminTab: "analytics",  // analytics | responses | recommendations
+  adminTab: "summary",  // summary | analytics | responses | recommendations
   analyticsData: null,
   editingResponse: null,
   systemRecommendations: null,
@@ -290,6 +290,9 @@ function renderAdmin() {
 
       <div class="admin-container">
         <div class="admin-tabs">
+          <button class="tab-btn ${State.adminTab === 'summary' ? 'active' : ''}" data-tab="summary">
+            📋 Executive Summary
+          </button>
           <button class="tab-btn ${State.adminTab === 'analytics' ? 'active' : ''}" data-tab="analytics">
             📊 Analytics & Insights
           </button>
@@ -301,7 +304,8 @@ function renderAdmin() {
           </button>
         </div>
 
-        ${State.adminTab === 'analytics' ? renderAnalyticsDashboard() : 
+        ${State.adminTab === 'summary' ? renderExecutiveSummary() :
+          State.adminTab === 'analytics' ? renderAnalyticsDashboard() : 
           State.adminTab === 'recommendations' ? renderSystemRecommendations() : `
           <div class="admin-summary">
             <div class="summary-total">
@@ -482,6 +486,9 @@ function attachEvents() {
   
   const exportJSON = el("exportJSON");
   if (exportJSON) exportJSON.addEventListener("click", exportToJSON);
+  
+  const exportExecutiveSummary = el("exportExecutiveSummary");
+  if (exportExecutiveSummary) exportExecutiveSummary.addEventListener("click", exportExecutiveSummaryReport);
   
   const exportPDF = el("exportPDF");
   if (exportPDF) exportPDF.addEventListener("click", exportToPDF);
