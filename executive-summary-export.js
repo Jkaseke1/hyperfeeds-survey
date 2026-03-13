@@ -109,6 +109,6 @@ function exportExecutiveSummaryReport() {
   content += `End of Executive Summary Report\n`;
   content += `Generated from Hyperfeeds Stakeholder Discovery System\n`;
   
-  // Download the file
-  downloadFile('Hyperfeeds_Executive_Summary_' + timestamp + '.txt', content, 'text/plain;charset=utf-8;');
+  // Download the file as CSV for Excel compatibility
+  downloadFile('Hyperfeeds_Executive_Summary_' + timestamp + '.csv', content, 'text/csv;charset=utf-8;');
 }

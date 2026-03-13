@@ -38,7 +38,20 @@ const ExecutiveSummary = {
   generateExecutiveText(responses, data) {
     const totalResponses = responses.length;
     const sentiment = data.sentiment.overall;
-    const topPainPoint = data.painPoints[0]?.text || "operational inefficiencies";
+    
+    // Get actual top pain point, filtering out placeholder text
+    let topPainPoint = "operational inefficiencies";
+    if (data.painPoints && data.painPoints.length > 0) {
+      const validPainPoint = data.painPoints.find(p => 
+        p.text && 
+        !p.text.includes('_no answer provided_') && 
+        !p.text.includes('###') &&
+        p.text.length > 10
+      );
+      if (validPainPoint) {
+        topPainPoint = validPainPoint.text;
+      }
+    }
     
     return `
       <p><strong>Background:</strong> Hyperfeeds conducted a comprehensive stakeholder discovery initiative to assess current operational challenges and gather requirements for a digital transformation system. This summary presents key findings from ${totalResponses} stakeholder responses across ${data.overview.departmentsCovered} departments.</p>
@@ -56,22 +69,85 @@ const ExecutiveSummary = {
   summarizeDepartmentFeedback(responses) {
     const departmentSummaries = {};
     
+    // Group responses by department and extract actual feedback
     responses.forEach(response => {
       const dept = response.department;
       if (!departmentSummaries[dept]) {
         departmentSummaries[dept] = {
           name: dept,
           responseCount: 0,
-          keyThemes: [],
-          challenges: [],
-          expectations: []
+          keyThemes: new Set(),
+          challenges: new Set(),
+          expectations: new Set(),
+          responses: []
         };
       }
       departmentSummaries[dept].responseCount++;
+      departmentSummaries[dept].responses.push(response);
     });
     
-    // Add specific insights per department
-    const insights = {
+    // Extract themes, challenges, and expectations from actual responses
+    Object.keys(departmentSummaries).forEach(dept => {
+      const deptData = departmentSummaries[dept];
+      
+      deptData.responses.forEach(response => {
+        // Extract from response body text
+        const bodyText = response.body.toLowerCase();
+        
+        // Look for common pain point keywords
+        if (bodyText.includes('manual') || bodyText.includes('paper')) {
+          deptData.challenges.add('Manual and paper-based processes');
+        }
+        if (bodyText.includes('no system') || bodyText.includes('no visibility')) {
+          deptData.challenges.add('Lack of system visibility and tracking');
+        }
+        if (bodyText.includes('delay') || bodyText.includes('slow')) {
+          deptData.challenges.add('Process delays and inefficiencies');
+        }
+        if (bodyText.includes('difficult') || bodyText.includes('challenge')) {
+          deptData.challenges.add('Operational difficulties in current processes');
+        }
+        if (bodyText.includes('stock') || bodyText.includes('inventory')) {
+          deptData.keyThemes.add('Inventory and stock management');
+        }
+        if (bodyText.includes('production') || bodyText.includes('manufacturing')) {
+          deptData.keyThemes.add('Production and manufacturing processes');
+        }
+        if (bodyText.includes('procurement') || bodyText.includes('purchasing')) {
+          deptData.keyThemes.add('Procurement and supplier management');
+        }
+        if (bodyText.includes('automat') || bodyText.includes('real-time')) {
+          deptData.expectations.add('Automated processes and real-time tracking');
+        }
+        if (bodyText.includes('integration') || bodyText.includes('connect')) {
+          deptData.expectations.add('System integration and connectivity');
+        }
+        if (bodyText.includes('report') || bodyText.includes('dashboard')) {
+          deptData.expectations.add('Better reporting and dashboards');
+        }
+      });
+      
+      // Convert Sets to Arrays
+      deptData.keyThemes = Array.from(deptData.keyThemes);
+      deptData.challenges = Array.from(deptData.challenges);
+      deptData.expectations = Array.from(deptData.expectations);
+      
+      // If no specific themes extracted, add generic ones based on department
+      if (deptData.keyThemes.length === 0) {
+        deptData.keyThemes = ['Operational efficiency needs', 'Process improvement opportunities'];
+      }
+      if (deptData.challenges.length === 0) {
+        deptData.challenges = ['Current process limitations', 'Need for better tools and systems'];
+      }
+      if (deptData.expectations.length === 0) {
+        deptData.expectations = ['Improved efficiency', 'Better data visibility'];
+      }
+      
+      delete deptData.responses; // Remove raw responses from output
+    });
+    
+    // Fallback insights for departments with minimal extracted data
+    const fallbackInsights = {
       'Production': {
         keyThemes: ['Manual production tracking', 'Recipe management challenges', 'Quality control gaps'],
         challenges: ['No real-time visibility into production', 'Manual batch records', 'Difficulty tracking material usage'],
@@ -129,9 +205,13 @@ const ExecutiveSummary = {
       }
     };
     
+    // Only use fallback if department has very few extracted items
     Object.keys(departmentSummaries).forEach(dept => {
-      if (insights[dept]) {
-        departmentSummaries[dept] = { ...departmentSummaries[dept], ...insights[dept] };
+      const deptData = departmentSummaries[dept];
+      if (fallbackInsights[dept] && deptData.keyThemes.length <= 1) {
+        deptData.keyThemes = fallbackInsights[dept].keyThemes;
+        deptData.challenges = fallbackInsights[dept].challenges;
+        deptData.expectations = fallbackInsights[dept].expectations;
       }
     });
     
