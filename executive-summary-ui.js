@@ -220,8 +220,8 @@ function renderExecutiveSummary() {
           <h3>Export Executive Summary</h3>
           <p>Download this executive summary for presentation to leadership and stakeholders</p>
           <button class="btn-export-summary" id="exportExecutiveSummary">
-            <span class="export-icon">�</span>
-            Download Executive Summary (CSV)
+            <span class="export-icon">📄</span>
+            Download Executive Summary (Word Document)
           </button>
         </div>
       </div>
