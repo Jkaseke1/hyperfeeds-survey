@@ -13,10 +13,11 @@ const State = {
   error: null,
   filterDept: "all",
   selectedResponse: null,
-  adminTab: "summary",  // summary | analytics | responses | recommendations
+  adminTab: "summary",  // summary | analytics | responses | recommendations | checklist
   analyticsData: null,
   editingResponse: null,
   systemRecommendations: null,
+  checklistProgress: null,
 };
 
 // ---- HELPERS ----
@@ -293,6 +294,9 @@ function renderAdmin() {
           <button class="tab-btn ${State.adminTab === 'summary' ? 'active' : ''}" data-tab="summary">
             📋 Executive Summary
           </button>
+          <button class="tab-btn ${State.adminTab === 'checklist' ? 'active' : ''}" data-tab="checklist">
+            ✅ Implementation Checklist
+          </button>
           <button class="tab-btn ${State.adminTab === 'analytics' ? 'active' : ''}" data-tab="analytics">
             📊 Analytics & Insights
           </button>
@@ -305,6 +309,7 @@ function renderAdmin() {
         </div>
 
         ${State.adminTab === 'summary' ? renderExecutiveSummary() :
+          State.adminTab === 'checklist' ? renderImplementationChecklist() :
           State.adminTab === 'analytics' ? renderAnalyticsDashboard() : 
           State.adminTab === 'recommendations' ? renderSystemRecommendations() : `
           <div class="admin-summary">
@@ -492,6 +497,26 @@ function attachEvents() {
   
   const exportPDF = el("exportPDF");
   if (exportPDF) exportPDF.addEventListener("click", exportToPDF);
+  
+  // Checklist action buttons
+  const saveChecklistProgress = el("saveChecklistProgress");
+  if (saveChecklistProgress) saveChecklistProgress.addEventListener("click", saveChecklistProgress);
+  
+  const exportChecklist = el("exportChecklist");
+  if (exportChecklist) exportChecklist.addEventListener("click", exportChecklistToWord);
+  
+  const resetChecklist = el("resetChecklist");
+  if (resetChecklist) resetChecklist.addEventListener("click", resetChecklistProgress);
+  
+  // Checklist checkboxes
+  document.querySelectorAll('.checklist-checkbox').forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      const itemId = checkbox.dataset.itemId;
+      if (!State.checklistProgress) State.checklistProgress = {};
+      State.checklistProgress[itemId] = checkbox.checked;
+      render();
+    });
+  });
 
   // Dept filters
   document.querySelectorAll(".filter-btn").forEach(btn => {
